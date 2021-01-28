@@ -5,6 +5,8 @@ class DueDateCalculator
   attr_reader :submitted_at, :turnaround_time, :start, :finish, :work_start, :work_end
 
   def initialize(options = {})
+    raise ArgumentError, 'turnaround_time is missing' unless options[:turnaround_time]
+
     @submitted_at    = options[:submitted_at] || Time.now
     @turnaround_time = options[:turnaround_time].to_f
     @work_start      = options[:work_start] || 9

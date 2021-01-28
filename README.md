@@ -19,13 +19,13 @@ gem 'due_date_calculator', git: 'https://github.com/tamaskamaras/due_date_calcul
 ## Usage
 
 ```
-calculator = DueDateCalculator.new(submitted_at: Time.now, turnaround_time: 16)
-calculator.run => 2021-02-02 09:00:00 +0100
+calculator = DueDateCalculator.new(submitted_at: Time.now, turnaround_time: 17)
+calculator.run => 2021-02-02 10:00:00 +0100
 ```
 
 Where `submitted_at` is the submit time and `turnaround_time` is the amount of time refering to the working hours that can be spent on the issue, and the return value is the deadline until a certain task has to be finished.
 
-The result calculates only with 8 working hours every workingday (default: 9:00-17:00), so evenings, weekends are skiped hence the `turnaround_time`  hours are distributed into actual working hours.
+The result considers only with 8 working hours every workingday (default: 9:00-17:00), so evenings, weekends are skiped hence the `turnaround_time`  hours are distributed into actual working hours.
 
 ## Contribution
 
