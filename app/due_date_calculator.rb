@@ -24,7 +24,17 @@ class DueDateCalculator
   end
 
   def coerced_into_working_hours(input_datetime)
-    # TODO
-    input_datetime
+    set_to_monday_if_needed(input_datetime)
+  end
+
+  def set_to_monday_if_needed(input_datetime)
+    case input_datetime.strftime('%A')
+    when 'Saturday'
+      input_datetime + 2
+    when 'Sunday'
+      input_datetime + 1
+    else
+      input_datetime
+    end
   end
 end
