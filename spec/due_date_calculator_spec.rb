@@ -1,4 +1,5 @@
 require 'rspec'
+require './app/due_date_calculator'
 
 RSpec.describe DueDateCalculator do
   subject do
