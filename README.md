@@ -23,9 +23,9 @@ calculator = DueDateCalculator.new(submitted_at: Time.now, turnaround_time: 17)
 calculator.run => 2021-02-02 10:00:00 +0100
 ```
 
-Where `submitted_at` is the submit time and `turnaround_time` is the amount of time refering to the working hours that can be spent on the issue, and the return value is the deadline until a certain task has to be finished.
+Where `submitted_at` is the submit time and `turnaround_time` is the amount of time refering to the working hours that can be spent on the issue. The return value is the Time type deadline until the task has to be finished.
 
-The result considers only with 8 working hours every workingday (default: 9:00-17:00), so evenings, weekends are skiped hence the `turnaround_time`  hours are distributed into actual working hours.
+The result is considering only 8 working hours every workingday (default: 9:00-17:00), so evenings, weekends are skiped hence the `turnaround_time` hours are distributed into actual working hours.
 
 ## Contribution
 

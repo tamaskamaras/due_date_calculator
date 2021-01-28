@@ -1,4 +1,3 @@
-require 'rspec'
 require './app/due_date_calculator'
 
 RSpec.describe DueDateCalculator do
@@ -113,6 +112,15 @@ RSpec.describe DueDateCalculator do
 
         it 'returns the same time 2 weeks later' do
           expect(subject.run).to eq(Time.new(2021, 2, 11, 10, 23, 15))
+        end
+      end
+
+      context 'when #submitted_at is after workstart and turnaround_time is 8' do
+        let(:submitted_at)    { Time.new(2021, 1, 28, 18, 21, 18) }
+        let(:turnaround_time) { 8 }
+
+        it 'retruns the end of next working day' do
+          expect(subject.run).to eq(Time.new(2021, 1, 29, 17, 0, 0))
         end
       end
     end

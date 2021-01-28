@@ -20,8 +20,9 @@ class DueDateCalculator
 
     while remaining_time > 0 do
       if remaining_time >= hours(8)
-        ret += day(1)
+        ret += hours(8)
         remaining_time -= hours(8)
+        ret += nighttime unless ret == work_end_on(ret)
       else
         ret += nighttime if seconds_until_end_of_workday(ret) < remaining_time
         ret += remaining_time

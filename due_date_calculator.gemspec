@@ -14,7 +14,7 @@ Gem::Specification.new do |gem_spec|
   ]
   gem_spec.require_paths = ['app', 'spec']
   gem_spec.metadata      = {
-    'source_code_uri' => 'https://github.com/tamaskamaras/due_date_calculator'
+    'source_code_uri' => 'https://github.com/tamaskamaras/due_date_calculator.git'
   }
   gem_spec.add_runtime_dependency('time')
   gem_spec.add_development_dependency('rspec', '~> 3.10', '>= 3.10.0')
