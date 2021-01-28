@@ -25,7 +25,7 @@ class DueDateCalculator
         ret += remaining_time
         remaining_time = 0
       end
-      ret = set_to_monday_if_weekend(ret)
+      ret = add_weekend_if_needed(ret)
     end
 
     ret
@@ -73,10 +73,10 @@ class DueDateCalculator
       ret = input_time
     end
 
-    set_to_monday_if_weekend(ret)
+    add_weekend_if_needed(ret)
   end
 
-  def set_to_monday_if_weekend(input_time)
+  def add_weekend_if_needed(input_time)
     case input_time.strftime('%A')
     when 'Saturday'
       input_time + days(2)

@@ -117,6 +117,4 @@ RSpec.describe DueDateCalculator do
       end
     end
   end
-
-  describe '.run'
 end
