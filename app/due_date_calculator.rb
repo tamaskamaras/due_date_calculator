@@ -13,36 +13,41 @@ class DueDateCalculator
   end
 
   def execute
-    ret             = start
-    remaining_hours = turnaround_time
+    ret            = start.to_time
+    remaining_time = hours(turnaround_time)
 
-    while remaining_hours > 0 do
-      if remaining_hours >= 8
-        ret += 1
-        remaining_hours -= 8
+    while remaining_time > 0 do
+      if remaining_time >= hours(8)
+        ret += hours(24)
+        remaining_time -= hours(8)
       else
-        ret  = ret.to_time
-        ret += nighttime_ours if seconds_until_workday_end(ret) < (remaining_hours * 3600)
-        ret += remaining_hours * 3600
-        ret  = ret.to_datetime
-        remaining_hours = 0
+        ret += nighttime if seconds_until_workday_end(ret) < remaining_time
+        ret += remaining_time
+        remaining_time = 0
       end
-
       ret = set_to_monday_if_weekend(ret)
     end
 
-    ret
+    ret.to_datetime
   end
   alias :run :execute
 
   private
 
-  def seconds_until_workday_end(basetime)
-    work_end_on(basetime).to_time - basetime.to_time
+  def hours(n)
+    n * 3600
   end
 
-  def nighttime_ours
+  def days(n)
+    n * hours(24)
+  end
+
+  def nighttime
     (24 - (work_end - work_start)) * 3600
+  end
+
+  def seconds_until_workday_end(basetime)
+    work_end_on(basetime).to_time - basetime.to_time
   end
 
   def datetime_from(input)
@@ -67,15 +72,15 @@ class DueDateCalculator
       ret = input_datetime
     end
 
-    set_to_monday_if_weekend(ret)
+    set_to_monday_if_weekend(ret.to_time).to_datetime
   end
 
   def set_to_monday_if_weekend(input_datetime)
     case input_datetime.strftime('%A')
     when 'Saturday'
-      input_datetime + 2
+      input_datetime + days(2)
     when 'Sunday'
-      input_datetime + 1
+      input_datetime + days(1)
     else
       input_datetime
     end
