@@ -22,17 +22,16 @@ class DueDateCalculator
         remaining_hours -= 8
       else
         secs = seconds_until_workday_end(ret)
-        if secs < 0 # the remaining time overlaps the end of the workday
-          add_nighttime_ours_to(ret)
-
+        if secs < (remaining_hours * 3600) # the remaining time overlaps the end of the workday
+          ret += nighttime_ours
           ret = ret.to_time
           ret += (remaining_hours * 3600)
         else
-          ret = ret.to_time + (remaining_hours * 3600)
-          ret = ret.to_datetime
-          ret = ret.to_datetime
-          remaining_hours = 0
+          ret  = ret.to_time
+          ret += remaining_hours * 3600
         end
+        ret             = ret.to_datetime
+        remaining_hours = 0
       end
 
       ret = set_to_monday_if_weekend(ret)
@@ -48,8 +47,8 @@ class DueDateCalculator
     work_end_on(basetime).to_time - basetime.to_time
   end
 
-  def add_nighttime_ours_to(basetime)
-    # TODO
+  def nighttime_ours
+    (24 - (work_end - work_start)) / 24.0
   end
 
   def datetime_from(input)

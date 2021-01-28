@@ -84,6 +84,14 @@ RSpec.describe DueDateCalculator do
         end
       end
 
+      context '7 hours (thus overlaps the end of the workday)' do
+        let(:turnaround_time) { 7 }
+
+        it 'returns the next working day at 1 hours later' do
+          expect(subject.run).to eq(DateTime.new(2021, 1, 29, 9, 23, 15))
+        end
+      end
+
       context '16 hours' do
         let(:turnaround_time) { 16 }
 
