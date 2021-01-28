@@ -2,12 +2,14 @@ require 'date'
 
 class DueDateCalculator
 
-  attr_reader :submitted_at, :turnaround_time, :start
+  attr_reader :submitted_at, :turnaround_time, :start, :work_start, :work_end
 
   def initialize(options = {})
     @submitted_at    = options[:submitted_at] || DateTime.now
     @turnaround_time = options[:turnaround_time].to_i
     @start           = datetime_from(submitted_at)
+    @work_start      = options[:work_start] || 9
+    @work_end        = options[:work_end] || 17
   end
 
   def execute

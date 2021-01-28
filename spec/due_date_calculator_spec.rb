@@ -45,9 +45,15 @@ RSpec.describe DueDateCalculator do
     end
 
     describe 'is coerced into working hours' do
-      context 'when input is before workstart'
-      context 'when input is after workstart'
-      context 'when input is on weekend'
+      context 'when #submitted_at is before workstart' do
+        it 'is set to #work_start (9 am) on the same day'
+      end
+      context 'when #submitted_at is after workstart' do
+        it 'is set to #work_start (9 am) on the next day'
+      end
+      context 'when #submitted_at is on weekend' do
+        it 'is set to #work_start (9 am) on next monday'
+      end
     end
   end
 
