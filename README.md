@@ -4,17 +4,13 @@ Library for calculating deadlines/due dates with working days and working hours 
 
 ## Getting Started
 
-Install through command prompt
-
-```
-gem install due_date_calculator --source https://github.com/tamaskamaras/due_date_calculator.git
-```
-
-Or include in your Gemfile
+Include in your Gemfile
 
 ```
 gem 'due_date_calculator', git: 'https://github.com/tamaskamaras/due_date_calculator.git'
 ```
+
+and run `bundle install`
 
 ## Usage
 
