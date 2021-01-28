@@ -11,8 +11,8 @@ RSpec.describe DueDateCalculator do
   describe '#start' do
     let(:turnaround_time) { 16 }
 
-    describe 'allows input format as' do
-      RSpec.shared_examples 'coerce #submitted_at into Time as #start' do
+    describe 'when the type of #submitted_at is' do
+      RSpec.shared_examples '#submitted_at is coerced into Time as #start' do
         it 'returns Time' do
           expect(subject.start).to be_a(Time)
         end
@@ -21,29 +21,29 @@ RSpec.describe DueDateCalculator do
       context 'Date' do
         let(:submitted_at) { Date.today }
 
-        include_examples 'coerce #submitted_at into Time as #start'
+        include_examples '#submitted_at is coerced into Time as #start'
       end
 
       context 'Time' do
         let(:submitted_at) { Time.now }
 
-        include_examples 'coerce #submitted_at into Time as #start'
+        include_examples '#submitted_at is coerced into Time as #start'
       end
 
       context 'DateTime' do
         let(:submitted_at) { DateTime.now }
 
-        include_examples 'coerce #submitted_at into Time as #start'
+        include_examples '#submitted_at is coerced into Time as #start'
       end
 
       context 'String' do
         let(:submitted_at) { '2021-01-28' }
 
-        include_examples 'coerce #submitted_at into Time as #start'
+        include_examples '#submitted_at is coerced into Time as #start'
       end
     end
 
-    describe 'is coerced into working hours' do
+    describe 'is coerced into the range of working hours' do
       context 'when #submitted_at is before workstart' do
         let(:submitted_at) { Time.new(2021, 1, 28, 5, 23, 15) }
 
@@ -78,7 +78,7 @@ RSpec.describe DueDateCalculator do
       context '3 hours' do
         let(:turnaround_time) { 3 }
 
-        it 'returns the same date and time at 3 hours later' do
+        it 'returns the same date at 3 hours later' do
           expect(subject.run).to eq(Time.new(2021, 1, 28, 13, 23, 15))
         end
       end
@@ -119,7 +119,7 @@ RSpec.describe DueDateCalculator do
         let(:submitted_at)    { Time.new(2021, 1, 28, 18, 21, 18) }
         let(:turnaround_time) { 8 }
 
-        it 'retruns the end of next working day' do
+        it 'retruns the end of the next working day' do
           expect(subject.run).to eq(Time.new(2021, 1, 29, 17, 0, 0))
         end
       end

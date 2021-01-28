@@ -2,7 +2,7 @@ require 'time'
 
 class DueDateCalculator
 
-  attr_reader :submitted_at, :turnaround_time, :start, :finish, :work_start, :work_end
+  attr_reader :submitted_at, :turnaround_time, :work_start, :work_end, :start, :finish
 
   def initialize(options = {})
     raise ArgumentError, 'turnaround_time is missing' unless options[:turnaround_time]
@@ -40,6 +40,7 @@ class DueDateCalculator
   def hours(n)
     n * 3600
   end
+  alias :hour :hours
 
   def days(n)
     n * hours(24)
