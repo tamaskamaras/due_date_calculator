@@ -6,21 +6,54 @@ class DueDateCalculator
 
   def initialize(options = {})
     @submitted_at    = options[:submitted_at] || DateTime.now
-    @turnaround_time = options[:turnaround_time].to_i
+    @turnaround_time = options[:turnaround_time].to_f
     @work_start      = options[:work_start] || 9
     @work_end        = options[:work_end] || 17
     @start           = coerced_into_working_hours(datetime_from(submitted_at))
   end
 
   def execute
-    # TODO
+    ret             = start
+    remaining_hours = turnaround_time
+
+    while remaining_hours > 0 do
+      if remaining_hours >= 8
+        ret += 1
+        remaining_hours -= 8
+      else
+        secs = seconds_until_workday_end(ret)
+        if secs < 0 # the remaining time overlaps the end of the workday
+          add_nighttime_ours_to(ret)
+
+          ret = ret.to_time
+          ret += (remaining_hours * 3600)
+        else
+          ret = ret.to_time + (remaining_hours * 3600)
+          ret = ret.to_datetime
+          ret = ret.to_datetime
+          remaining_hours = 0
+        end
+      end
+
+      ret = set_to_monday_if_weekend(ret)
+    end
+
+    ret
   end
   alias :run :execute
 
   private
 
+  def seconds_until_workday_end(basetime)
+    work_end_on(basetime).to_time - basetime.to_time
+  end
+
+  def add_nighttime_ours_to(basetime)
+    # TODO
+  end
+
   def datetime_from(input)
-    input.is_a?(String) ? DateTime.strptime(input, '%Y-%M-%d') : input.to_datetime
+    input.is_a?(String) ? DateTime.iso8601(input) : input.to_datetime
   end
 
   def work_start_on(t)
