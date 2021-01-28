@@ -9,9 +9,16 @@ class DueDateCalculator
     @turnaround_time = options[:turnaround_time].to_i
   end
 
+  def execute
+    # TODO
+  end
+  alias :run :execute
+
   private
 
   def normalized_date_from(input)
-    # TODO
+    return DateTime.now unless input
+
+    input.is_a?(String) ? DateTime.strptime(input, '%Y-%M-%d') : input.to_datetime
   end
 end
