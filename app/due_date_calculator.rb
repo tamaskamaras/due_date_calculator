@@ -2,7 +2,7 @@ require 'time'
 
 class DueDateCalculator
 
-  attr_reader :submitted_at, :turnaround_time, :start, :work_start, :work_end
+  attr_reader :submitted_at, :turnaround_time, :start, :finish, :work_start, :work_end
 
   def initialize(options = {})
     @submitted_at    = options[:submitted_at] || Time.now
@@ -28,7 +28,7 @@ class DueDateCalculator
       ret = add_weekend_if_needed(ret)
     end
 
-    ret
+    @finish = ret
   end
   alias :run :execute
 
