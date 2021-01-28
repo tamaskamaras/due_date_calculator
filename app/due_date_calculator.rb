@@ -2,11 +2,12 @@ require 'date'
 
 class DueDateCalculator
 
-  attr_reader :submitted_at, :turnaround_time
+  attr_reader :submitted_at, :turnaround_time, :start
 
   def initialize(options = {})
-    @submitted_at = normalized_date_from(options[:submitted_at])
+    @submitted_at    = options[:submitted_at] || DateTime.now
     @turnaround_time = options[:turnaround_time].to_i
+    @start           = datetime_from(submitted_at)
   end
 
   def execute
@@ -16,9 +17,7 @@ class DueDateCalculator
 
   private
 
-  def normalized_date_from(input)
-    return DateTime.now unless input
-
+  def datetime_from(input)
     input.is_a?(String) ? DateTime.strptime(input, '%Y-%M-%d') : input.to_datetime
   end
 end

@@ -9,38 +9,38 @@ RSpec.describe DueDateCalculator do
     )
   end
 
-  describe '#submitted_at' do
+  describe '#start' do
     let(:turnaround_time) { 16 }
 
     describe 'allows input format as' do
-      RSpec.shared_examples 'coerce #submitted_at into DateTime' do
+      RSpec.shared_examples 'coerce #submitted_at into DateTime as #start' do
         it 'returns DateTime' do
-          expect(subject.submitted_at).to be_a(DateTime)
+          expect(subject.start).to be_a(DateTime)
         end
       end
 
       context 'Date' do
         let(:submitted_at) { Date.today }
 
-        include_examples 'coerce #submitted_at into DateTime'
+        include_examples 'coerce #submitted_at into DateTime as #start'
       end
 
       context 'Time' do
         let(:submitted_at) { Time.now }
 
-        include_examples 'coerce #submitted_at into DateTime'
+        include_examples 'coerce #submitted_at into DateTime as #start'
       end
 
       context 'DateTime' do
         let(:submitted_at) { DateTime.now }
 
-        include_examples 'coerce #submitted_at into DateTime'
+        include_examples 'coerce #submitted_at into DateTime as #start'
       end
 
       context 'String' do
         let(:submitted_at) { '2021-01-28' }
 
-        include_examples 'coerce #submitted_at into DateTime'
+        include_examples 'coerce #submitted_at into DateTime as #start'
       end
     end
 
